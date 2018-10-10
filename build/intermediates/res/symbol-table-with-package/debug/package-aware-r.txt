@@ -1,0 +1,2 @@
+spp.bluetooth.jackwaiting.com.bluetoothlibrary
+int string app_name 0x7f150001
