@@ -279,9 +279,9 @@ public class BluetoothDeviceButtonRadioManager {
                 }
             } else if (command[0] == BluetoothDeviceButtonRadioProtocol.CommandUploadType.KEY_TYPE_VOLUME) {
                 if (command[1] == 2) {
-                    LogManager.d(TAG, "volume command:" + (command[2]));
+                    LogManager.d(TAG, "volume command:" + (command[2]) + "volume feedback = " + command[3]);
                     if (sOnBluetoothDeviceButtonRadiolUIChangedListener != null) {
-                        sOnBluetoothDeviceButtonRadiolUIChangedListener.onBluetoothDeviceVolume(command[2]);
+                        sOnBluetoothDeviceButtonRadiolUIChangedListener.onBluetoothDeviceVolume(command[2],command[3]);
                     }
                 }
             } else if (command[0] == 1) { //特殊命令

@@ -88,8 +88,9 @@ public interface OnBluetoothDeviceButtonRadiolUIChangedListener {
      * 波动设备触发音量设置
      * </p>
      * @param volume 音量。
+     * @param feedback 返回值。
      */
-    void onBluetoothDeviceVolume(int volume);
+    void onBluetoothDeviceVolume(int volume,int feedback);
 
     /**
      * <p>
