@@ -2,6 +2,7 @@ package spp.bluetooth.jackwaiting.lib.extend.devices;
 
 import spp.bluetooth.jackwaiting.lib.commands.BluetoothDeviceCommandManager;
 import spp.bluetooth.jackwaiting.lib.commands.BluetoothDeviceCommandProtocol;
+import spp.bluetooth.jackwaiting.lib.extend.listeners.OnBluetoothDeviceButtonRadioAutoPlayMusicChangeListener;
 import spp.bluetooth.jackwaiting.lib.extend.listeners.OnBluetoothDeviceButtonRadioPaonChangeListener;
 import spp.bluetooth.jackwaiting.lib.extend.listeners.OnBluetoothDeviceButtonRadioVersionChangeListener;
 import spp.bluetooth.jackwaiting.lib.extend.listeners.OnBluetoothDeviceButtonRadiolUIChangedListener;
@@ -117,6 +118,28 @@ public class BluetoothDeviceButtonRadioManager {
         sOnBluetoothDeviceButtonRadioVersionChangeListener = onBluetoothDeviceButtonRadioVersionChangeListener;
     }
 
+    /**
+     * <p>
+     * 外部传入的蓝牙自动播放改变监听
+     * </p>
+     *
+     * @since 1.0.0
+     */
+    private static OnBluetoothDeviceButtonRadioAutoPlayMusicChangeListener sOnBluetoothDeviceButtonRadioAutoPlayMusicChangeListener;
+
+    /**
+     * <p>
+     * 设置蓝牙自动播放改变监听器
+     * </p>
+     *
+     * @param onBluetoothDeviceButtonRadioAutoPlayMusicChangeListener 蓝牙播放开关全局UI变化监听器。
+     * @since 1.0.0
+     */
+    public void setOnBluetoothDeviceButtonRadioAutoPlayMusicChangeListener(
+            OnBluetoothDeviceButtonRadioAutoPlayMusicChangeListener onBluetoothDeviceButtonRadioAutoPlayMusicChangeListener) {
+        sOnBluetoothDeviceButtonRadioAutoPlayMusicChangeListener = onBluetoothDeviceButtonRadioAutoPlayMusicChangeListener;
+    }
+
 
     /**
      * <p>
@@ -185,6 +208,30 @@ public class BluetoothDeviceButtonRadioManager {
     public void inquireLowBatteryTone() {
         BluetoothDeviceCommandManager.sendCommand(BluetoothDeviceButtonRadioProtocol.CommandUploadType.INQUIRY_LOW_BATTERY_TONE, 0);
     }
+
+    /**
+     * <p>
+     * 设置自动播放
+     * </p>
+     * @param power 是否打开提示音
+     * @since 1.0.0
+     */
+    public void setBluetoothAutoPlay(int power) {
+        BluetoothDeviceCommandManager.sendCommand(BluetoothDeviceButtonRadioProtocol.CommandUploadType.SET_BLUETOOTH_AUTO_PLAY, 1, power);
+    }
+
+    /**
+     * <p>
+     * 查询自动播放。
+     * </p>
+     *
+     * @since 1.0.0
+     */
+    public void inquireBluetoothAutoPlay() {
+        BluetoothDeviceCommandManager.sendCommand(BluetoothDeviceButtonRadioProtocol.CommandUploadType.INQUIRY_BLUETOOTH_AUTO_PLAY, 0);
+    }
+
+
     /**
      * <p>
      * 设置设备校验。
@@ -307,6 +354,20 @@ public class BluetoothDeviceButtonRadioManager {
                     LogManager.d(TAG, "pa command:" + (command[2]));
                     if (sOnBluetoothDeviceButtonRadioPaonChangeListener != null) {
                         sOnBluetoothDeviceButtonRadioPaonChangeListener.onBluetoothDevicePaonReady();
+                    }
+                }
+            }else if (command[0] == BluetoothDeviceButtonRadioProtocol.CommandUploadType.SET_BLUETOOTH_AUTO_PLAY) {
+                if (command[1] == 1) {
+                    LogManager.d(TAG, "auto music command:" + (command[2]) + "feedback = 1");
+                    if (sOnBluetoothDeviceButtonRadioAutoPlayMusicChangeListener != null) {
+                        sOnBluetoothDeviceButtonRadioAutoPlayMusicChangeListener.onBluetoothDeviceAutoPlayMusic(1,command[2]);
+                    }
+                }
+            }else if (command[0] == BluetoothDeviceButtonRadioProtocol.CommandUploadType.INQUIRY_BLUETOOTH_AUTO_PLAY) {
+                if (command[1] == 1) {
+                    LogManager.d(TAG, "auto music command:" + (command[2]) + "feedback = 0");
+                    if (sOnBluetoothDeviceButtonRadioAutoPlayMusicChangeListener != null) {
+                        sOnBluetoothDeviceButtonRadioAutoPlayMusicChangeListener.onBluetoothDeviceAutoPlayMusic(0,command[2]);
                     }
                 }
             }

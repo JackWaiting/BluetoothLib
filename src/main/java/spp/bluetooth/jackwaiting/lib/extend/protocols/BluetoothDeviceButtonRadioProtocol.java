@@ -184,6 +184,24 @@ public class BluetoothDeviceButtonRadioProtocol {
          */
         public static final int INQUIRY_LOW_BATTERY_TONE = 0x25;
 
+        /**
+         * <p>
+         * 设置蓝牙自动播放开关。
+         * </p>
+         *
+         * @since 1.0.0
+         */
+        public static final int SET_BLUETOOTH_AUTO_PLAY = 0x24;
+
+        /**
+         * <p>
+         * 查询蓝牙自动播放开关。
+         * </p>
+         *
+         * @since 1.0.0
+         */
+        public static final int INQUIRY_BLUETOOTH_AUTO_PLAY = 0x23;
+
         public static final String SMART_A2F = "smart_A2F";
     }
 }
