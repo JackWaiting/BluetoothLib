@@ -14,6 +14,7 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 import spp.bluetooth.jackwaiting.lib.listeners.OnBluetoothDeviceManagerReadyListener;
 import spp.bluetooth.jackwaiting.lib.status.ConnectionState;
@@ -147,20 +148,26 @@ public class BluetoothChatA2dpService {
     }
 
     private void getConnectedDevices() {
-        if (mA2dp != null && mA2dp.getConnectedDevices() != null && mA2dp.getConnectedDevices().size() > 0) {
-            for (int i = 0; i < mA2dp.getConnectedDevices().size(); i++) {
-                Log.i(TAG, "connect device=" + mA2dp.getConnectedDevices().get(i));
-                mConnectDevice = mA2dp.getConnectedDevices().get(i);
+        if(mA2dp != null){
+            List<BluetoothDevice> bluetoothDevices = mA2dp.getConnectedDevices();
+            if (bluetoothDevices != null && bluetoothDevices.size() > 0) {
+                for (int i = 0; i < bluetoothDevices.size(); i++) {
+                    Log.i(TAG, "connect device=" + bluetoothDevices.get(i));
+                    mConnectDevice = bluetoothDevices.get(i);
+                }
             }
         }
     }
 
     private void getDisconnectDevices() {
-        if (mA2dp != null && mA2dp.getConnectedDevices() != null && mA2dp.getConnectedDevices().size() > 0) {
-            for (int i = 0; i < mA2dp.getConnectedDevices().size(); i++) {
-                Log.i(TAG, "connect device=" + mA2dp.getConnectedDevices().get(i));
-                mConnectDevice = mA2dp.getConnectedDevices().get(i);
-                getA2dpConnectState();
+        if(mA2dp != null){
+            List<BluetoothDevice> bluetoothDevices = mA2dp.getConnectedDevices();
+            if (bluetoothDevices != null && bluetoothDevices.size() > 0) {
+                for (int i = 0; i < bluetoothDevices.size(); i++) {
+                    Log.i(TAG, "connect device=" + bluetoothDevices.get(i));
+                    mConnectDevice = bluetoothDevices.get(i);
+                    getA2dpConnectState();
+                }
             }
         }
     }
