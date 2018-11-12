@@ -281,6 +281,17 @@ public class BluetoothDeviceButtonRadioManager {
 
     /**
      * <p>
+     * 打开功放20s。
+     * </p>
+     *@param type 自定义命令。
+     * @since 1.0.0
+     */
+    public void openPA(int type) {
+        BluetoothDeviceCommandManager.sendCommand(BluetoothDeviceButtonRadioProtocol.CommandUploadType.OPEN_PA, 2, 0,type);
+    }
+
+    /**
+     * <p>
      * 解析自定义命令。
      * </p>
      *
@@ -334,6 +345,13 @@ public class BluetoothDeviceButtonRadioManager {
             } else if (command[0] == 1) { //特殊命令
                 if (sOnBluetoothDeviceButtonRadiolUIChangedListener != null) {
                     sOnBluetoothDeviceButtonRadiolUIChangedListener.onBluetoothDeviceStartRecord();
+                }
+            }else if (command[0] == BluetoothDeviceButtonRadioProtocol.CommandUploadType.OPEN_PA) {
+                if (command[1] == 2) {
+                    LogManager.d(TAG, "pa command:" + (command[2]));
+                    if (sOnBluetoothDeviceButtonRadioPaonChangeListener != null) {
+                        sOnBluetoothDeviceButtonRadioPaonChangeListener.onBluetoothDevicePaonReadyByType(command[3]);
+                    }
                 }
             }
         } else if (command.length > 0) {

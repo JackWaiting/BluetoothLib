@@ -17,4 +17,6 @@ public interface OnBluetoothDeviceButtonRadioPaonChangeListener {
      * </p>
      */
     void onBluetoothDevicePaonReady();
+
+    void onBluetoothDevicePaonReadyByType(int type);
 }

@@ -7,7 +7,7 @@ publish {
     userOrg = 'jackwaiting'//bintray.com用户名
     groupId = 'com.bluetooth.jackwaiting.lib'//jcenter上的路径
     artifactId = 'bluetoothlibrary'//项目名称
-    publishVersion = '1.2.2'//版本号
+    publishVersion = '1.2.3'//版本号
     desc = 'this is for bluetoothlibrary'//描述，不重要
     website = 'https://github.com/JackWaiting/BluetoothLibrary'//网站，最好有，不重要
     bintrayUser = 'jackwaiting'
